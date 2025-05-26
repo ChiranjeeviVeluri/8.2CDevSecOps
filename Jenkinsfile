@@ -33,17 +33,25 @@ pipeline {
       } 
     } 
 stage('SonarCloud Analysis') {
-  steps {
-    withCredentials([string(credentialsId: 'JenkinsToken', variable: 'SONAR_TOKEN')]) {
-      sh '''
-        curl -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-        unzip sonar-scanner-cli-4.8.0.2856-linux.zip
-        export PATH=$PATH:$PWD/sonar-scanner-4.8.0.2856-linux/bin
-        sonar-scanner
-      '''
-    }
+  withCredentials([string(credentialsId: 'JenkinsToken', variable: 'SONAR_TOKEN')]) {
+    sh '''
+      # Download SonarScanner CLI
+      curl -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+
+      # Extract the SonarScanner CLI
+      unzip -o sonar-scanner-cli-4.8.0.2856-linux.zip
+
+      # Run sonar-scanner with your project details
+      ./sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
+        -Dsonar.projectKey=ChiranjeeviVeluri_8-2CDevSecOps \
+        -Dsonar.organization=chiranjeeviveluri \
+        -Dsonar.sources=. \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.login=$SONAR_TOKEN
+    '''
   }
 }
+
 
  
   } 
