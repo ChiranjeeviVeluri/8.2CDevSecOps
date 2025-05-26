@@ -1,8 +1,6 @@
-pipeline {
-  agent any
-  tools {
-    jdk 'jdk17'   // must match the name you chose above
-  }
+pipeline { 
+  agent any 
+ 
   stages { 
     stage('Checkout') { 
       steps { 
@@ -34,27 +32,7 @@ pipeline {
         sh 'npm audit || true' // This will show known CVEs in the output 
       } 
     } 
-stage('SonarCloud Analysis') {
-  steps {
-    withCredentials([string(credentialsId: 'JenkinsToken', variable: 'SONAR_TOKEN')]) {
-      sh '''
-        # Download SonarScanner CLI
-        curl -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-
-        # Extract the archive
-        unzip -o sonar-scanner-cli-4.8.0.2856-linux.zip
-
-        # Run SonarScanner
-        ./sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
-          -Dsonar.projectKey=ChiranjeeviVeluri_8-2CDevSecOps \
-          -Dsonar.organization=chiranjeeviveluri \
-          -Dsonar.sources=. \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=$SONAR_TOKEN
-      '''
-    }
-  }
-}
+    
  
   } 
 }
