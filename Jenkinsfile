@@ -32,9 +32,9 @@ pipeline {
         sh 'npm audit || true' // This will show known CVEs in the output 
       } 
     } 
-    stage('SonarCloud Analysis') {
+  stage('SonarCloud Analysis') {
   steps {
-    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+    withCredentials([string(credentialsId: 'JenkinsToken', variable: 'SONAR_TOKEN')]) {
       sh '''
         wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
         unzip sonar-scanner-cli-4.8.0.2856-linux.zip
@@ -44,6 +44,7 @@ pipeline {
     }
   }
 }
+
  
   } 
 }
