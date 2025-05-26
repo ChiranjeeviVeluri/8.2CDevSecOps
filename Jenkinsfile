@@ -1,6 +1,8 @@
-pipeline { 
-  agent any 
- 
+pipeline {
+  agent any
+  tools {
+    jdk 'jdk17'   // must match the name you chose above
+  }
   stages { 
     stage('Checkout') { 
       steps { 
