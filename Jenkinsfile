@@ -68,10 +68,10 @@ Build: ${env.BUILD_URL}
 Here is the output of `npm audit`.
 See attached console log for details.
 """,
-            attachmentsPattern: '**/npm-debug.log', //I am changing//
+            attachmentsPattern: '**/npm-debug.log', 
             attachLog:          true
           )
-        }
+        } //newchanges//
       }
     }
 
